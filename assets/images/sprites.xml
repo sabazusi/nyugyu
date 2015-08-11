@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="sprites.png">
+	<!--
+	Created with ShoeBox
+	http://renderhjs.net/shoebox/
+	-->
+	<SubTexture name="background.jpg"	x="0"	y="0"	width="800"	height="600" frameX="-0" frameY="-0" frameWidth="800" frameHeight="600"/>
+	<SubTexture name="chara-right.png"	x="0"	y="655"	width="23"	height="28" frameX="-0" frameY="-0" frameWidth="23" frameHeight="28"/>
+	<SubTexture name="chara_left.png"	x="0"	y="626"	width="23"	height="28" frameX="-0" frameY="-0" frameWidth="23" frameHeight="28"/>
+	<SubTexture name="pumpkin.png"	x="0"	y="601"	width="30"	height="24" frameX="-0" frameY="-5" frameWidth="31" frameHeight="31"/>
+</TextureAtlas>
