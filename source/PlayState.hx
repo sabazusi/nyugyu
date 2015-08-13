@@ -9,9 +9,14 @@ import flixel.util.FlxMath;
 
 class PlayState extends FlxState
 {
+	private var _direction:Bool = true;
+
 	override public function create():Void
 	{
 		super.create();
+		var background = new FlxSprite();
+		background.loadGraphic("assets/images/background.png");
+		add(background);
 	}
 	
 	override public function destroy():Void
