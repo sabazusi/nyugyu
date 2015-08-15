@@ -25,7 +25,8 @@ class PlayState extends FlxState
 		_character = new Character(cLeft);
 
 		add(_character);
-		_character.offset.set(0, FlxG.height - _character.height);
+		_character.x = 0;
+		_character.y = FlxG.height - _character.height;
 	}
 	
 	override public function destroy():Void
@@ -47,6 +48,11 @@ class PlayState extends FlxState
 				_character.toLeft();
 			}
 		}
+
+		if (FlxG.mouse.pressed)
+		{
+				_move(_getPressedVelocity() > 0 ? 3 : -3);
+		}
 	}	
 
 	private function _getPressedVelocity():Int
@@ -55,9 +61,15 @@ class PlayState extends FlxState
 		{
 			return 1;
 		}
-		else
+		return -1;
+	}
+
+	private function _move(distance:Float):Void
+	{
+		var result = _character.x + distance;
+		if (result >= 0 && result < FlxG.width - _character.width)
 		{
-			return -1;
+			_character.x  =  result;
 		}
 	}
 }
