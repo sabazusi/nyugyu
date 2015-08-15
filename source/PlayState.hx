@@ -21,12 +21,8 @@ class PlayState extends FlxState
 		add(background);
 
 		var cLeft = new FlxSprite();
-		var cRight = new FlxSprite();
 		cLeft.loadGraphic("assets/images/chara_left.png");
-		cRight.loadGraphic("assets/images/chara-right.png");
-		_character = new Character(
-				cLeft, cRight
-			);
+		_character = new Character(cLeft);
 
 		add(_character);
 	}
@@ -41,7 +37,26 @@ class PlayState extends FlxState
 		super.update();
 		if(FlxG.mouse.justPressed)
 		{
-			_character.swap();
+			if (_getPressedVelocity() > 0)
+			{
+				_character.toRight();
+			}
+			else
+			{
+				_character.toLeft();
+			}
 		}
 	}	
+
+	private function _getPressedVelocity():Int
+	{
+		if (FlxG.mouse.getScreenPosition().x / FlxG.width > 0.5)
+		{
+			return 1;
+		}
+		else
+		{
+			return -1;
+		}
+	}
 }
