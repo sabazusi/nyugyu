@@ -34,7 +34,6 @@ class MenuState extends FlxState
 			);
 		navigateText.setFormat(null, 36, FlxColor.RED);
 		this.add(navigateText);
-
 	}
 	
 	override public function destroy():Void

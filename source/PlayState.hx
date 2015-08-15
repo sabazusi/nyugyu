@@ -25,6 +25,7 @@ class PlayState extends FlxState
 		_character = new Character(cLeft);
 
 		add(_character);
+		_character.offset.set(0, FlxG.height - _character.height);
 	}
 	
 	override public function destroy():Void
