@@ -24,6 +24,12 @@ class PlayState extends FlxState
 		cLeft.loadGraphic("assets/images/chara_left.png");
 		_character = new Character(cLeft);
 
+		var item = new FlxSprite();
+		item.loadGraphic("assets/images/pumpkin.png");
+		item.y = FlxG.height - item.height;
+		item.x = (FlxG.width - item.width ) / 2;
+		add(item);
+
 		add(_character);
 		_character.x = 0;
 		_character.y = FlxG.height - _character.height;
