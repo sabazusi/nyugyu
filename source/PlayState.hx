@@ -12,6 +12,8 @@ class PlayState extends FlxState
 {
 	private var _direction:Bool = true;
 	private var _character:Character;
+	private var _item:FlxSprite;
+	private var _isRetrying:Bool = false;
 
 	override public function create():Void
 	{
@@ -24,15 +26,16 @@ class PlayState extends FlxState
 		cLeft.loadGraphic("assets/images/chara_left.png");
 		_character = new Character(cLeft);
 
-		var item = new FlxSprite();
-		item.loadGraphic("assets/images/pumpkin.png");
-		item.y = FlxG.height - item.height;
-		item.x = (FlxG.width - item.width ) / 2;
-		add(item);
+		_item = new FlxSprite();
+		_item.loadGraphic("assets/images/pumpkin.png");
+		_item.y = FlxG.height - _item.height;
+		_item.x = (FlxG.width - _item.width ) / 2;
+		add(_item);
 
 		add(_character);
 		_character.x = 0;
 		_character.y = FlxG.height - _character.height;
+
 	}
 	
 	override public function destroy():Void
@@ -42,7 +45,13 @@ class PlayState extends FlxState
 
 	override public function update():Void
 	{
+		if(_isRetrying)
+		{
+			return;
+		}
 		super.update();
+		FlxG.overlap(_character, _item, _onOverlaped);
+
 		if(FlxG.mouse.justPressed)
 		{
 			if (_getPressedVelocity() > 0)
@@ -77,5 +86,10 @@ class PlayState extends FlxState
 		{
 			_character.x  =  result;
 		}
+	}
+
+	private function _onOverlaped(chara:FlxSprite, pump:FlxSprite):Void
+	{
+		_isRetrying = true;
 	}
 }
