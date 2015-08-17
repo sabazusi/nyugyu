@@ -6,7 +6,9 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
+import flixel.plugin.MouseEventManager;
 import character.Character;
+import panel.RetryPanel;
 
 class PlayState extends FlxState
 {
@@ -14,6 +16,7 @@ class PlayState extends FlxState
 	private var _character:Character;
 	private var _item:FlxSprite;
 	private var _isRetrying:Bool = false;
+	private var _retryPanel:RetryPanel;
 
 	override public function create():Void
 	{
@@ -35,6 +38,8 @@ class PlayState extends FlxState
 		add(_character);
 		_character.x = 0;
 		_character.y = FlxG.height - _character.height;
+
+		_retryPanel = new RetryPanel();
 
 	}
 	
@@ -91,5 +96,14 @@ class PlayState extends FlxState
 	private function _onOverlaped(chara:FlxSprite, pump:FlxSprite):Void
 	{
 		_isRetrying = true;
+		add(_retryPanel);
+		MouseEventManager.add(_retryPanel, _onRetried);
+	}
+
+	private function _onRetried(sprite:FlxSprite):Void
+	{
+		MouseEventManager.remove(_retryPanel);
+		remove(_retryPanel);
+		FlxG.switchState(new PlayState());
 	}
 }
