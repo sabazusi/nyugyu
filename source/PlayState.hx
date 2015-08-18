@@ -41,6 +41,7 @@ class PlayState extends FlxState
 
 		_retryPanel = new RetryPanel();
 
+		_character.toRight();
 	}
 	
 	override public function destroy():Void
@@ -52,6 +53,7 @@ class PlayState extends FlxState
 	{
 		if(_isRetrying)
 		{
+			_checkRetry();
 			return;
 		}
 		super.update();
@@ -97,13 +99,20 @@ class PlayState extends FlxState
 	{
 		_isRetrying = true;
 		add(_retryPanel);
-		MouseEventManager.add(_retryPanel, _onRetried);
+		_retryPanel.y = (FlxG.height - _retryPanel.height) / 2;
 	}
 
 	private function _onRetried(sprite:FlxSprite):Void
 	{
-		MouseEventManager.remove(_retryPanel);
-		remove(_retryPanel);
-		FlxG.switchState(new PlayState());
+	}
+
+	private function _checkRetry():Void
+	{
+		if(FlxG.mouse.justPressed)
+		{
+			_isRetrying = false;
+			remove(_retryPanel);
+			FlxG.resetState();
+		}
 	}
 }

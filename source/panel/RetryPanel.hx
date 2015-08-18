@@ -1,22 +1,18 @@
 package panel;
 
-import flixel.FlxSprite;
 import flixel.text.FlxText;
 import flixel.FlxG;
+import flixel.util.FlxColor;
 import flixel.plugin.MouseEventManager;
 
-class RetryPanel extends FlxSprite
+class RetryPanel extends FlxText
 {
     public function new()
     {
-        super();
+        super(0, 0, FlxG.width, "Tap to Retry");
 
-        _setup();
-    }
+        this.setFormat(null, 82, FlxColor.BLACK);
+        this.alignment = "center";
 
-    private function _setup():Void
-    {
-        var text = new FlxText(0, 0, FlxG.width * 0.8,"Tap to Retry");
-        this.loadGraphicFromSprite(text);
     }
 }
