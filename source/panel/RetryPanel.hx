@@ -13,6 +13,5 @@ class RetryPanel extends FlxText
 
         this.setFormat(null, 82, FlxColor.BLACK);
         this.alignment = "center";
-
     }
 }

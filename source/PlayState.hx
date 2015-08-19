@@ -9,12 +9,14 @@ import flixel.util.FlxMath;
 import flixel.plugin.MouseEventManager;
 import character.Character;
 import panel.RetryPanel;
+import drop.DropController;
+import drop.Drop;
 
 class PlayState extends FlxState
 {
 	private var _direction:Bool = true;
 	private var _character:Character;
-	private var _item:FlxSprite;
+	private var _dropController:DropController;
 	private var _isRetrying:Bool = false;
 	private var _retryPanel:RetryPanel;
 
@@ -29,11 +31,12 @@ class PlayState extends FlxState
 		cLeft.loadGraphic("assets/images/chara_left.png");
 		_character = new Character(cLeft);
 
-		_item = new FlxSprite();
-		_item.loadGraphic("assets/images/pumpkin.png");
-		_item.y = FlxG.height - _item.height;
-		_item.x = (FlxG.width - _item.width ) / 2;
-		add(_item);
+		_dropController = new DropController();
+		var drop = new Drop();
+		drop.x = FlxG.width / 2;
+		drop.y = FlxG.height - drop.height;
+		_dropController.add(drop);
+		add(drop);
 
 		add(_character);
 		_character.x = 0;
@@ -57,7 +60,11 @@ class PlayState extends FlxState
 			return;
 		}
 		super.update();
-		FlxG.overlap(_character, _item, _onOverlaped);
+		_dropController.checkOverlap(_character);
+		if (_dropController.isOverlaped())
+		{
+			_onOverlaped();
+		}
 
 		if(FlxG.mouse.justPressed)
 		{
@@ -95,15 +102,12 @@ class PlayState extends FlxState
 		}
 	}
 
-	private function _onOverlaped(chara:FlxSprite, pump:FlxSprite):Void
+	private function _onOverlaped():Void
 	{
+		_dropController.cleanUp();
 		_isRetrying = true;
 		add(_retryPanel);
 		_retryPanel.y = (FlxG.height - _retryPanel.height) / 2;
-	}
-
-	private function _onRetried(sprite:FlxSprite):Void
-	{
 	}
 
 	private function _checkRetry():Void
