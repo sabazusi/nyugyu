@@ -20,6 +20,9 @@ class PlayState extends FlxState
 	private var _isRetrying:Bool = false;
 	private var _retryPanel:RetryPanel;
 
+	private var _respawnCount:Int = 0;
+	private var _RESPOWN_DISTANCE:Int = 50;
+
 	override public function create():Void
 	{
 		super.create();
@@ -32,11 +35,7 @@ class PlayState extends FlxState
 		_character = new Character(cLeft);
 
 		_dropController = new DropController();
-		var drop = new Drop();
-		drop.x = FlxG.width / 2;
-		drop.y = FlxG.height - drop.height;
-		_dropController.add(drop);
-		add(drop);
+		_generateDrop();
 
 		add(_character);
 		_character.x = 0;
@@ -60,6 +59,7 @@ class PlayState extends FlxState
 			return;
 		}
 		super.update();
+		_dropController.update();
 		_dropController.checkOverlap(_character);
 		if (_dropController.isOverlaped())
 		{
@@ -82,7 +82,26 @@ class PlayState extends FlxState
 		{
 				_move(_getPressedVelocity() > 0 ? 3 : -3);
 		}
+
+		if (_respawnCount > _RESPOWN_DISTANCE)
+		{
+			_respawnCount = 0;
+			_generateDrop();
+		}
+		else
+		{
+			_respawnCount++;
+		}
 	}	
+
+	private function _generateDrop():Void
+	{
+		var drop = new Drop();
+		drop.x = flixel.util.FlxRandom.floatRanged(drop.width, FlxG.width - drop.width);
+		drop.y = 0;
+		_dropController.add(drop);
+		add(drop);
+	}
 
 	private function _getPressedVelocity():Int
 	{

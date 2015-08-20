@@ -23,13 +23,26 @@ class DropController
     public function cleanUp():Void
     {
         _drops
-            .filter(function(d){return Type.enumEq(d.currentState(), DropState.AWAKEN);})
-            .map(function(d){d.destroy();});
+            .filter(function(d){return Type.enumEq(d.currentState(), DropState.DESTROY);})
+            .map(function(d){d.destroy();_drops.remove(d);});
     }
 
     public function checkOverlap(target:Character):Void
     {
         _drops.map(function(d){FlxG.overlap(target, d, _overlaped);});
+    }
+
+    public function update():Void
+    {
+        _drops
+            .filter(function(d){return Type.enumEq(d.currentState(), DropState.AWAKEN);})
+            .map(function(d){d.next();});
+
+        _drops
+            .filter(function(d){return d.y > FlxG.height;})
+            .map(function(d){d.next();});
+
+        cleanUp();
     }
 
     public function isOverlaped():Bool
