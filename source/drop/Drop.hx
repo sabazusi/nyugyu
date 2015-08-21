@@ -43,4 +43,9 @@ class Drop extends FlxSprite
         this.acceleration.y = 25;
     }
 
+    public function score():Int
+    {
+        return 1;
+    }
+
 }

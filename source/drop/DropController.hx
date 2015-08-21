@@ -20,11 +20,14 @@ class DropController
         _drops.add(drop);
     }
 
-    public function cleanUp():Void
+    public function cleanUp():Int
     {
+        var score = 0;
         _drops
             .filter(function(d){return Type.enumEq(d.currentState(), DropState.DESTROY);})
-            .map(function(d){d.destroy();_drops.remove(d);});
+            .map(function(d){score += d.score();d.destroy();_drops.remove(d);});
+
+        return score;
     }
 
     public function checkOverlap(target:Character):Void
@@ -32,7 +35,7 @@ class DropController
         _drops.map(function(d){FlxG.overlap(target, d, _overlaped);});
     }
 
-    public function update():Void
+    public function update():Int
     {
         _drops
             .filter(function(d){return Type.enumEq(d.currentState(), DropState.AWAKEN);})
@@ -42,7 +45,7 @@ class DropController
             .filter(function(d){return d.y > FlxG.height;})
             .map(function(d){d.next();});
 
-        cleanUp();
+        return cleanUp();
     }
 
     public function isOverlaped():Bool

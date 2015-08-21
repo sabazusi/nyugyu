@@ -9,6 +9,7 @@ import flixel.util.FlxMath;
 import flixel.plugin.MouseEventManager;
 import character.Character;
 import panel.RetryPanel;
+import panel.ScorePanel;
 import drop.DropController;
 import drop.Drop;
 
@@ -19,6 +20,7 @@ class PlayState extends FlxState
 	private var _dropController:DropController;
 	private var _isRetrying:Bool = false;
 	private var _retryPanel:RetryPanel;
+	private var _score:ScorePanel;
 
 	private var _respawnCount:Int = 0;
 	private var _RESPOWN_DISTANCE:Int = 50;
@@ -42,6 +44,8 @@ class PlayState extends FlxState
 		_character.y = FlxG.height - _character.height;
 
 		_retryPanel = new RetryPanel();
+		_score = new ScorePanel(0, 0, FlxG.width * 0.8);
+		add(_score);
 
 		_character.toRight();
 	}
@@ -59,7 +63,7 @@ class PlayState extends FlxState
 			return;
 		}
 		super.update();
-		_dropController.update();
+		_score.add(_dropController.update());
 		_dropController.checkOverlap(_character);
 		if (_dropController.isOverlaped())
 		{
