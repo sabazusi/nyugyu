@@ -12,6 +12,8 @@ import panel.RetryPanel;
 import panel.ScorePanel;
 import drop.DropController;
 import drop.Drop;
+import drop.HighDrop;
+import drop.DropRandomGenerator;
 
 class PlayState extends FlxState
 {
@@ -21,6 +23,7 @@ class PlayState extends FlxState
 	private var _isRetrying:Bool = false;
 	private var _retryPanel:RetryPanel;
 	private var _score:ScorePanel;
+	private var _dropGenerator:DropRandomGenerator;
 
 	private var _respawnCount:Int = 0;
 	private var _RESPOWN_DISTANCE:Int = 50;
@@ -37,6 +40,7 @@ class PlayState extends FlxState
 		_character = new Character(cLeft);
 
 		_dropController = new DropController();
+		_dropGenerator = new DropRandomGenerator();
 		_generateDrop();
 
 		add(_character);
@@ -100,7 +104,7 @@ class PlayState extends FlxState
 
 	private function _generateDrop():Void
 	{
-		var drop = new Drop();
+		var drop = _dropGenerator.getDrop();
 		drop.x = flixel.util.FlxRandom.floatRanged(drop.width, FlxG.width - drop.width);
 		drop.y = 0;
 		_dropController.add(drop);
