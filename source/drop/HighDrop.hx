@@ -23,4 +23,11 @@ class HighDrop extends Drop
         this.velocity.y = 150;
         this.acceleration.y = 25;
     }
+
+    override public function score():Int
+    {
+        return 2;
+    }
+
+
 } 

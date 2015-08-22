@@ -6,15 +6,13 @@ import drop.HighDrop;
 
 class DropRandomGenerator
 {
-    private var _drops = [Drop, HighDrop];
-
     public function new()
     {
     }
 
     public function getDrop():Drop
     {
-        return new _drops[Std.random(1)];
+        return Std.random(2) > 0 ? new Drop() : new HighDrop();
     }
 
 }
