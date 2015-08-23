@@ -25,4 +25,9 @@ class ScorePanel extends FlxText
     {
         return "SCORE: " + _score;
     }
+
+    public function getScore():Int
+    {
+        return _score;
+    }
 }

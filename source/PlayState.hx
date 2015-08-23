@@ -6,6 +6,7 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
+import flixel.util.FlxSave;
 import flixel.plugin.MouseEventManager;
 import character.Character;
 import panel.RetryPanel;
@@ -24,6 +25,7 @@ class PlayState extends FlxState
 	private var _retryPanel:RetryPanel;
 	private var _score:ScorePanel;
 	private var _dropGenerator:DropRandomGenerator;
+	private var _save = new FlxSave();
 
 	private var _respawnCount:Int = 0;
 	private var _RESPOWN_DISTANCE:Int = 50;
@@ -31,6 +33,7 @@ class PlayState extends FlxState
 	override public function create():Void
 	{
 		super.create();
+		_save.bind("momonoki");
 		var background = new FlxSprite();
 		background.loadGraphic("assets/images/background.png");
 		add(background);
@@ -135,6 +138,12 @@ class PlayState extends FlxState
 		_isRetrying = true;
 		add(_retryPanel);
 		_retryPanel.y = (FlxG.height - _retryPanel.height) / 2;
+		var highScore = _save.data.score;
+		if(highScore < _score.getScore())
+		{
+			_save.data.score = _score.getScore();
+			_save.flush();
+		}
 	}
 
 	private function _checkRetry():Void

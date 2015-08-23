@@ -7,6 +7,7 @@ import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
 import flixel.util.FlxColor;
+import flixel.util.FlxSave;
 
 class MenuState extends FlxState
 {
@@ -34,6 +35,21 @@ class MenuState extends FlxState
 			);
 		navigateText.setFormat(null, 36, FlxColor.RED);
 		this.add(navigateText);
+
+		var save = new FlxSave();
+		save.bind("momonoki");
+		if(save.data.score == null)
+		{
+			save.data.score = 0;
+		}
+
+		var scoreText:FlxText = new FlxText(
+			0,
+			navigateText.y + navigateText.height + 50,
+			FlxG.width,
+			"HIGH SCORE: " + save.data.score
+		);
+		this.add(scoreText);
 	}
 	
 	override public function destroy():Void
