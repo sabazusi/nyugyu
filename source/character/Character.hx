@@ -4,14 +4,15 @@ import flixel.FlxSprite;
 
 class Character extends FlxSprite
 {
-    private var _left:FlxSprite; 
+    private var _graphic:FlxSprite;
 
-    public function new(left:flixel.FlxSprite)
+    public function new()
     {
         super();
-        _left = left;
 
-        this.loadGraphicFromSprite(_left);
+        _graphic = new FlxSprite();
+        _graphic.loadGraphic("assets/images/chara_left.png");
+        this.loadGraphicFromSprite(_graphic);
     }
 
     public function swap():Void

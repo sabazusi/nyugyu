@@ -38,23 +38,20 @@ class PlayState extends FlxState
 		background.loadGraphic("assets/images/background.png");
 		add(background);
 
-		var cLeft = new FlxSprite();
-		cLeft.loadGraphic("assets/images/chara_left.png");
-		_character = new Character(cLeft);
-
+		_character = new Character();
 		_dropController = new DropController();
 		_dropGenerator = new DropRandomGenerator();
-		_generateDrop();
+		_character.toRight();
 
-		add(_character);
 		_character.x = 0;
 		_character.y = FlxG.height - _character.height;
+		add(_character);
 
 		_retryPanel = new RetryPanel();
 		_score = new ScorePanel(0, 0, FlxG.width * 0.8);
 		add(_score);
 
-		_character.toRight();
+		_generateDrop();
 	}
 	
 	override public function destroy():Void
@@ -64,19 +61,26 @@ class PlayState extends FlxState
 
 	override public function update():Void
 	{
+		super.update();
+
+		// Check is Game Stopping.
 		if(_isRetrying)
 		{
 			_checkRetry();
 			return;
 		}
-		super.update();
+
+		// Destroy Drop and Update Score.
 		_score.add(_dropController.update());
+
+		// Check Overlap Drops and Character.
 		_dropController.checkOverlap(_character);
 		if (_dropController.isOverlaped())
 		{
 			_onOverlaped();
 		}
 
+		// Move Character
 		if(FlxG.mouse.justPressed)
 		{
 			if (_getPressedVelocity() > 0)
@@ -88,12 +92,12 @@ class PlayState extends FlxState
 				_character.toLeft();
 			}
 		}
-
 		if (FlxG.mouse.pressed)
 		{
-				_move(_getPressedVelocity() > 0 ? 3 : -3);
+			_move(_getPressedVelocity() > 0 ? 3 : -3);
 		}
 
+		// Check Drop Respown.
 		if (_respawnCount > _RESPOWN_DISTANCE)
 		{
 			_respawnCount = 0;
