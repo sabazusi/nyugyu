@@ -45,6 +45,10 @@ class DropController
             .filter(function(d){return d.y > FlxG.height;})
             .map(function(d){d.next();});
 
+        _drops
+            .filter(function(d){return Type.enumEq(d.currentState(), DropState.PROCESSING);})
+            .map(function(d){d.updateDrop();});
+
         return cleanUp();
     }
 

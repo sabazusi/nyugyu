@@ -3,6 +3,7 @@ package drop;
 
 import drop.Drop;
 import drop.HighDrop;
+import drop.ThunderDrop;
 
 class DropRandomGenerator
 {
@@ -12,7 +13,12 @@ class DropRandomGenerator
 
     public function getDrop():Drop
     {
-        return Std.random(2) > 0 ? new Drop() : new HighDrop();
+        var rand:Int = Std.random(3);
+        return switch(rand) {
+            case 1: new HighDrop();
+            case 2: new ThunderDrop();
+            case _: new Drop();
+        }
     }
 
 }

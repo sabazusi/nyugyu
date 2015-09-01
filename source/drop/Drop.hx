@@ -24,6 +24,10 @@ class Drop extends FlxSprite
         return _current;
     }
 
+    public function updateDrop():Void
+    {
+    }
+
     public function next():Void
     {
         switch (_current) {
@@ -40,7 +44,7 @@ class Drop extends FlxSprite
     private function _process():Void
     {
         this.velocity.y = 50;
-        this.acceleration.y = 25;
+        this.acceleration.y = 15;
     }
 
     public function score():Int

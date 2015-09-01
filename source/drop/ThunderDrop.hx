@@ -2,8 +2,10 @@ package drop;
 
 import drop.Drop;
 
-class HighDrop extends Drop
+class ThunderDrop extends Drop
 {
+    private var _changeCount = 0;
+
     public function new()
     {
         super();
@@ -21,15 +23,22 @@ class HighDrop extends Drop
     override private function _process():Void
     {
         this.velocity.y = 150;
+        this.velocity.x = 100;
         this.acceleration.y = 30;
     }
 
     override public function updateDrop():Void
     {
+        _changeCount++;
+        if(_changeCount > 30)
+        {
+            this.velocity.x *= -1;
+            _changeCount = 0;
+        }
     }
 
     override public function score():Int
     {
-        return 2;
+        return 3;
     }
 } 

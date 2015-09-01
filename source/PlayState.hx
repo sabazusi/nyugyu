@@ -107,6 +107,7 @@ class PlayState extends FlxState
 		{
 			_respawnCount++;
 		}
+
 	}	
 
 	private function _generateDrop():Void
