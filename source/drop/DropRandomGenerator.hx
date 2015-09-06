@@ -7,6 +7,7 @@ import drop.BigDrop;
 import drop.ThunderDrop;
 import drop.BaloonDrop;
 import drop.WaveDrop;
+import drop.SnakeDrop;
 import flixel.util.FlxRandom;
 
 class DropRandomGenerator
@@ -24,7 +25,8 @@ class DropRandomGenerator
             new BigDrop(),
             new ThunderDrop(),
             new BaloonDrop(),
-            new WaveDrop()
+            new WaveDrop(),
+            new SnakeDrop()
         ]);
     }
 
