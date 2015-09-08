@@ -12,22 +12,15 @@ import flixel.util.FlxRandom;
 
 class DropRandomGenerator
 {
+    private var _drops:Array<Class<Drop>> = [Drop, HighDrop, BigDrop, ThunderDrop, BaloonDrop, WaveDrop, SnakeDrop];
+
     public function new()
     {
     }
 
     public function getDrop():Drop
     {
-        // TODO Don,t create all Drop instance.
-        return FlxRandom.getObject([
-            new Drop(),
-            new HighDrop(),
-            new BigDrop(),
-            new ThunderDrop(),
-            new BaloonDrop(),
-            new WaveDrop(),
-            new SnakeDrop()
-        ]);
+        return Type.createInstance(FlxRandom.getObject(_drops), []);
     }
 
 }
