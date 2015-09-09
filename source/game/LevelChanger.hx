@@ -1,11 +1,20 @@
 package game;
 
-import drop.DropRandomGenerator;
+import drop.*;
 
 class LevelChanger
 {
     private var _generator:DropRandomGenerator;
     private var _EXP:Array<Int> = [10, 50, 100, 200, 400, 800];
+    private var _dropSets:Array<Array<Class<Drop>>> = 
+        [
+            [Drop, HighDrop, BigDrop],
+            [HighDrop, BigDrop, ThunderDrop],
+            [BigDrop, ThunderDrop, BaloonDrop],
+            [ThunderDrop, BaloonDrop, WaveDrop],
+            [BaloonDrop, WaveDrop, SnakeDrop],
+            [WaveDrop, SnakeDrop]
+        ];
     private var _nextExp:Int = 0;
     private var _isLevelUped:Bool = false;
 
@@ -18,9 +27,10 @@ class LevelChanger
     public function check(score:Int):Void
     {
         _isLevelUped = false;
-        if (score >= _nextExp && _EXP.length > 0)
+        if (score >= _nextExp && _EXP.length > 0 && _dropSets.length > 0)
         {
             _nextExp = _EXP.shift();
+            _generator.updateSets(_dropSets.shift());
             _isLevelUped = true;
         }
     }
@@ -29,4 +39,8 @@ class LevelChanger
     {
         return _isLevelUped;
     }
+}
+
+enum DropSet {
+
 }

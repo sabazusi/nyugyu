@@ -12,7 +12,7 @@ import flixel.util.FlxRandom;
 
 class DropRandomGenerator
 {
-    private var _drops:Array<Class<Drop>> = [Drop, HighDrop, BigDrop, ThunderDrop, BaloonDrop, WaveDrop, SnakeDrop];
+    private var _drops:Array<Class<Drop>> = [Drop, HighDrop];
 
     public function new()
     {
@@ -21,6 +21,11 @@ class DropRandomGenerator
     public function getDrop():Drop
     {
         return Type.createInstance(FlxRandom.getObject(_drops), []);
+    }
+
+    public function updateSets(sets:Array<Class<Drop>>):Void
+    {
+        _drops = sets;
     }
 
 }
