@@ -16,6 +16,7 @@ import drop.Drop;
 import drop.HighDrop;
 import drop.DropRandomGenerator;
 import game.LevelChanger;
+import panel.LevelChangeNotifier;
 
 class PlayState extends FlxState
 {
@@ -28,6 +29,7 @@ class PlayState extends FlxState
 	private var _dropGenerator:DropRandomGenerator;
 	private var _save = new FlxSave();
 	private var _levelChanger:LevelChanger;
+	private var _levelNotifier:LevelChangeNotifier;
 
 	private var _respawnCount:Int = 0;
 	private var _RESPOWN_DISTANCE:Int = 50;
@@ -55,6 +57,10 @@ class PlayState extends FlxState
 		_score = new ScorePanel(0, 0, FlxG.width * 0.8);
 		add(_score);
 
+		var levelText = new FlxText(_score.x + _score.width + 10, _score.y);
+		_levelNotifier = new LevelChangeNotifier(levelText);
+		add(levelText);
+
 		_generateDrop();
 	}
 	
@@ -77,6 +83,11 @@ class PlayState extends FlxState
 		// Destroy Drop and Update Score.
 		_score.add(_dropController.update());
 		_levelChanger.check(_score.getScore());
+		if (_levelChanger.isLevelUped())
+		{
+			_levelNotifier.show();
+		}
+		_levelNotifier.updateView();
 
 		// Check Overlap Drops and Character.
 		_dropController.checkOverlap(_character);
