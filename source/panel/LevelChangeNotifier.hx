@@ -11,13 +11,14 @@ class LevelChangeNotifier
     public function new(target:FlxText)
     {
         _target = target;
+        _target.text = "LEVEL UP!!";
+        _target.size = 32;
         _isLevelUping = false;
         _target.visible = false;
     }
 
     public function show():Void
     {
-        _target.text = "LEVEL UP!!";
         _target.visible = true;
         _isLevelUping = true;
 
@@ -29,7 +30,7 @@ class LevelChangeNotifier
         if (_isLevelUping)
         {
             _count--;
-            if (_count % 10 == 0)
+            if (_count % 5 == 0)
             {
                 _target.visible = !_target.visible;
             }

@@ -32,7 +32,7 @@ class PlayState extends FlxState
 	private var _levelNotifier:LevelChangeNotifier;
 
 	private var _respawnCount:Int = 0;
-	private var _RESPOWN_DISTANCE:Int = 50;
+	private var _respownDistance:Int = 50;
 
 	override public function create():Void
 	{
@@ -57,8 +57,10 @@ class PlayState extends FlxState
 		_score = new ScorePanel(0, 0, FlxG.width * 0.8);
 		add(_score);
 
-		var levelText = new FlxText(_score.x + _score.width + 10, _score.y);
+		var levelText = new FlxText(0, 0);
 		_levelNotifier = new LevelChangeNotifier(levelText);
+		levelText.x = (FlxG.width - levelText.width) / 2;
+		levelText.y = (FlxG.height - levelText.height) / 2;
 		add(levelText);
 
 		_generateDrop();
@@ -86,6 +88,7 @@ class PlayState extends FlxState
 		if (_levelChanger.isLevelUped())
 		{
 			_levelNotifier.show();
+			_respawnCount = cast(_respawnCount * 0.8, Int);
 		}
 		_levelNotifier.updateView();
 
@@ -114,7 +117,7 @@ class PlayState extends FlxState
 		}
 
 		// Check Drop Respown.
-		if (_respawnCount > _RESPOWN_DISTANCE)
+		if (_respawnCount > _respownDistance)
 		{
 			_respawnCount = 0;
 			_generateDrop();
