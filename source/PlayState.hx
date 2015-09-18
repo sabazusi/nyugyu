@@ -32,7 +32,7 @@ class PlayState extends FlxState
 	private var _levelNotifier:LevelChangeNotifier;
 
 	private var _respawnCount:Int = 0;
-	private var _respownDistance:Int = 50;
+	private var _respownDistance:Int = 30;
 
 	override public function create():Void
 	{
