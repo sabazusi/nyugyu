@@ -15,7 +15,7 @@ class Main extends Sprite
 	var _initialState:Class<FlxState> = MenuState;
 	var _zoom:Float = -1;
 	var _framerate:Int = 60;
-	var _skipSplash:Bool = false;
+	var _skipSplash:Bool = true;
 	var _startFullscreen:Bool = false;
 
 	public static function main():Void

@@ -22,7 +22,7 @@ class MenuState extends FlxState
 			(FlxG.width - titleSize) /2, 
 			100, 
 			titleSize, 
-			"NYU GYU"
+			"MOMONOKI"
 			);
 		titleText.setFormat(null, 82, FlxColor.BLACK);
 		this.add(titleText);
