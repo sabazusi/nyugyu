@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
+	 <meta title="momonoki" package="net.sabazusi" version="1.0.0" company="sabazusi.net" />
 	<!------------------------------APPLICATION SETTINGS---------------------------->
 	
 	<app title="momonoki" file="momonoki" main="Main" version="0.0.1" company="HaxeFlixel" />
@@ -79,4 +80,5 @@
 	<!--------------------------------CUSTOM---------------------------------------->
 	
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
+	<certificate path="momonoki.keystore" password="****" alias="momonoki" alias-password="****" if="android" />
 </project>
